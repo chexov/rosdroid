@@ -1,0 +1,70 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion '26.0.2'
+    defaultConfig {
+        applicationId "com.linevich.rostest2"
+        minSdkVersion 23
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        //https://developer.android.com/studio/write/java8-support.html
+        //https://stackoverflow.com/questions/44068347/replace-retrolambda-with-android-studio-3-0-java-8-built-in-features
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        mavenLocal()
+        maven {
+            url "https://raw.githubusercontent.com/rosjava/rosjava_mvn_repo/master/"
+        }
+    }
+}
+
+
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+
+    implementation 'io.reactivex:rxjava:1.2.10'
+    implementation 'io.reactivex:rxandroid:1.2.1'
+
+//
+//    testImplementation 'junit:junit:4.12'
+//    androidTestImplementation 'com.android.support.test:runner:1.0.0'
+//    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.0'
+    compile 'com.tbruyelle.rxpermissions:rxpermissions:0.9.4@aar'
+
+    compile 'org.ros.android_core:android_15:0.3.3'
+    compile 'org.ros.rosjava_core:rosjava:0.3.5'
+    compile 'edu.wpi.rail:jrosbridge:0.2.0'
+    
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+    //https://github.com/nomis/slf4j-android
+    compile 'eu.lp0.slf4j:slf4j-android:1.7.25-0'
+
+}
